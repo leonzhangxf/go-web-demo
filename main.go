@@ -1,19 +1,31 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
+	"leonzhangxf-api/api"
+	"leonzhangxf-api/db"
+	_ "leonzhangxf-api/db"
+	"log"
 )
 
 func main() {
-	fmt.Println("leonzhangxf api start")
+	log.Println("leonzhangxf api start")
+	db.Init()
 
-	engine := gin.Default()
+	api.Engine.GET("/ping", Ping)
+	_ = api.Engine.Run()
+}
 
-	engine.GET("/", func(context *gin.Context) {
-		context.String(200, "%s", "leon")
-	})
+func Ping(context *gin.Context) {
+	err := db.Db.Ping()
+	if nil != err {
+		context.JSON(503, &PingResponse{Status: 503, Msg: "DB ERR"})
+		return
+	}
+	context.JSON(200, &PingResponse{Status: 200, Msg: "OK"})
+}
 
-	_ = engine.Run()
+type PingResponse struct {
+	Status uint32 `json:"status"`
+	Msg    string `json:"msg"`
 }
