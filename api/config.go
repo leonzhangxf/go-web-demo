@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"leonzhangxf-api/db"
 	_ "leonzhangxf-api/docs"
 )
 
@@ -44,6 +45,23 @@ func init() {
 		}
 	}
 
-	// The url pointing to API definition
+	// Enable swagger api docs
 	Engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	// Use the ping to indicate the server's status.
+	Engine.GET("/ping", Ping)
+}
+
+func Ping(context *gin.Context) {
+	err := db.Db.Ping()
+	if nil != err {
+		context.JSON(503, &PingResponse{Status: 503, Msg: "DB ERR"})
+		return
+	}
+	context.JSON(200, &PingResponse{Status: 200, Msg: "OK"})
+}
+
+type PingResponse struct {
+	Status uint32 `json:"status"`
+	Msg    string `json:"msg"`
 }
