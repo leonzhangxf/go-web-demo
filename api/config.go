@@ -6,4 +6,5 @@ var Engine *gin.Engine
 
 func init() {
 	Engine = gin.Default()
+	InitArticle()
 }

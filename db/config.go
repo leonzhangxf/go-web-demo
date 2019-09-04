@@ -2,23 +2,27 @@ package db
 
 import (
 	"fmt"
+	"github.com/BurntSushi/toml"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"log"
+	"os"
 )
 
 var Db *sqlx.DB
 
-var dbConfig *DatasourceConfig
+var dbConfig DatasourceConfig
 
 func Init() {
-	dbConfig = &DatasourceConfig{
-		Address:  "localhost",
-		Port:     "3306",
-		Username: "root",
-		Password: "root",
-		Db:       "article",
+	const dbFileName = "db.toml"
+	dir, _ := os.Getwd()
+	dbFileLocation := fmt.Sprintf("%v%vconf%v%v", dir, string(os.PathSeparator),
+		string(os.PathSeparator), dbFileName)
+	log.Printf("Current db dir is %v\n", dbFileLocation)
+	if _, err := toml.DecodeFile(dbFileLocation, &dbConfig); nil != err {
+		log.Fatalln(err)
 	}
+	log.Printf("The parsed db config is %v\n", dbConfig)
 
 	dbConfigFormat := "%v:%v@tcp(%v:%v)/%v?%v"
 	dbParams := "loc=Asia%2FShanghai&parseTime=true"
@@ -33,9 +37,9 @@ func Init() {
 }
 
 type DatasourceConfig struct {
-	Address  string
-	Port     string
-	Username string
-	Password string
-	Db       string
+	Address  string `toml:"address"`
+	Port     string `toml:"port"`
+	Username string `toml:"username"`
+	Password string `toml:"password"`
+	Db       string `toml:"db"`
 }
