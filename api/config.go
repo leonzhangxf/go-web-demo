@@ -6,6 +6,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"leonzhangxf-api/db"
 	_ "leonzhangxf-api/docs"
+	"net/http"
 )
 
 var Engine *gin.Engine
@@ -55,10 +56,11 @@ func init() {
 func Ping(context *gin.Context) {
 	err := db.Db.Ping()
 	if nil != err {
-		context.JSON(503, &PingResponse{Status: 503, Msg: "DB ERR"})
+		context.JSON(http.StatusServiceUnavailable,
+			&PingResponse{Status: http.StatusServiceUnavailable, Msg: "DB ERR"})
 		return
 	}
-	context.JSON(200, &PingResponse{Status: 200, Msg: "OK"})
+	context.JSON(http.StatusOK, &PingResponse{Status: http.StatusOK, Msg: "OK"})
 }
 
 type PingResponse struct {
