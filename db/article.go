@@ -10,17 +10,27 @@ func QueryArticles() []Article {
 	sql := "select * from article"
 	err := Db.Select(&articles, sql)
 	if nil != err {
-		log.Printf("QueryArticles err. %v", err)
+		log.Printf("QueryArticles err. %v\n", err)
 	}
 	return articles
 }
 
-func GetArticleById(articleId int64) *Article {
+func QueryPublishedArticles() []Article {
+	var articles []Article
+	sql := "select * from article where status = 1"
+	err := Db.Select(&articles, sql)
+	if nil != err {
+		log.Printf("QueryPublishedArticles err. %v\n", err)
+	}
+	return articles
+}
+
+func GetPublishedArticleById(articleId int64) *Article {
 	var article Article
-	sql := "select * from article where id = ?"
+	sql := "select * from article where status = 1 and id = ?"
 	err := Db.QueryRowx(sql, articleId).StructScan(&article)
 	if nil != err {
-		log.Printf("GetArticleById err. %v", err)
+		log.Printf("GetPublishedArticleById err. %v\n", err)
 	}
 	return &article
 }

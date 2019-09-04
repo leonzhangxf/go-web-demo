@@ -1,0 +1,130 @@
+basePath: '{{.BasePath}}'
+definitions:
+  api.ArticleDto:
+    properties:
+      content:
+        example: 文章内容
+        type: string
+      desc:
+        example: 文章描述
+        type: string
+      gmtCreate:
+        example: "2006-01-02 15:04:05"
+        type: string
+      gmtModified:
+        example: "2006-01-02 15:04:05"
+        type: string
+      gmtPublish:
+        example: "2006-01-02 15:04:05"
+        type: string
+      id:
+        example: 1
+        type: integer
+      previewImg:
+        example: 文章预览图片
+        type: string
+      status:
+        example: 0
+        type: integer
+      title:
+        example: 文章标题
+        type: string
+    type: object
+  api.ArticleOpenDto:
+    properties:
+      content:
+        example: 文章内容
+        type: string
+      desc:
+        example: 文章描述
+        type: string
+      gmtCreate:
+        example: "2006-01-02 15:04:05"
+        type: string
+      gmtModified:
+        example: "2006-01-02 15:04:05"
+        type: string
+      gmtPublish:
+        example: "2006-01-02 15:04:05"
+        type: string
+      id:
+        example: 1
+        type: integer
+      previewImg:
+        example: 文章预览图片
+        type: string
+      title:
+        example: 文章标题
+        type: string
+    type: object
+  util.JsonTime:
+    type: object
+host: '{{.Host}}'
+info:
+  contact: {}
+  description: '{{.Description}}'
+  license: {}
+  title: '{{.Title}}'
+  version: '{{.Version}}'
+paths:
+  /api/v1/articles:
+    get:
+      description: Query articles, include no published articles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/api.ArticleDto'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Query articles
+  /open/v1/articles:
+    get:
+      description: Query published articles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/api.ArticleOpenDto'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Query published articles
+  /open/v1/articles/{id}:
+    get:
+      description: Get published article by id
+      parameters:
+      - description: Article Id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ArticleOpenDto'
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Get published article by id
+swagger: "2.0"

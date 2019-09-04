@@ -4,13 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"leonzhangxf-api/api"
 	"leonzhangxf-api/db"
-	_ "leonzhangxf-api/db"
 	"log"
 )
 
 func main() {
 	log.Println("leonzhangxf api start")
-	db.Init()
 
 	api.Engine.GET("/ping", Ping)
 	_ = api.Engine.Run()

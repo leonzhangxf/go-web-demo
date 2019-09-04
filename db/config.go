@@ -13,7 +13,7 @@ var Db *sqlx.DB
 
 var dbConfig DatasourceConfig
 
-func Init() {
+func init() {
 	const dbFileName = "db.toml"
 	dir, _ := os.Getwd()
 	dbFileLocation := fmt.Sprintf("%v%vconf%v%v", dir, string(os.PathSeparator),
