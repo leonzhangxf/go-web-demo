@@ -3,7 +3,9 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"leonzhangxf-api/api"
+	_ "leonzhangxf-api/api"
 	"leonzhangxf-api/db"
+	_ "leonzhangxf-api/db"
 	"log"
 )
 
