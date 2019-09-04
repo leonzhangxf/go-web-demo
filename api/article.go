@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"leonzhangxf-api/db"
 	"leonzhangxf-api/util"
-	"log"
 	"net/http"
 	"strconv"
 )
@@ -44,7 +43,7 @@ func (api *ArticleApi) GetOpenArticleById(ctx *gin.Context) {
 	idParam := ctx.Param("id")
 	articleId, err := strconv.ParseInt(idParam, 10, 64)
 	if nil != err {
-		log.Printf("The id param is %v", idParam)
+		util.Log.Printf("The id param is %v", idParam)
 		ctx.JSON(http.StatusBadRequest, "Bad article id param")
 		return
 	}

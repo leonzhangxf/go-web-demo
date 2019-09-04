@@ -4,10 +4,15 @@ import (
 	"leonzhangxf-api/api"
 	_ "leonzhangxf-api/api"
 	_ "leonzhangxf-api/db"
-	"log"
+	"leonzhangxf-api/util"
+	_ "leonzhangxf-api/util"
 )
 
 func main() {
-	log.Println("leonzhangxf api start")
-	_ = api.Engine.Run()
+	addr := ":8080"
+	util.Log.Infoln("leonzhangxf api start.", "The addr is", addr)
+	err := api.Engine.Run(addr)
+	if nil != err {
+		util.Log.Fatalln("leonzhangxf api start failed.")
+	}
 }

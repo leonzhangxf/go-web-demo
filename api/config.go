@@ -19,6 +19,7 @@ var Engine *gin.Engine
 // @contact.email leonzhangxf@gmail.com
 // @BasePath /
 func init() {
+	gin.SetMode(gin.ReleaseMode)
 	Engine = gin.Default()
 
 	articleApi := ArticleApi{}

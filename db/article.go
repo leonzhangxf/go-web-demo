@@ -1,7 +1,7 @@
 package db
 
 import (
-	"log"
+	"leonzhangxf-api/util"
 	"time"
 )
 
@@ -10,7 +10,7 @@ func QueryArticles() []Article {
 	sql := "select * from article"
 	err := Db.Select(&articles, sql)
 	if nil != err {
-		log.Printf("QueryArticles err. %v\n", err)
+		util.Log.Warningln("QueryArticles err.", err)
 	}
 	return articles
 }
@@ -20,7 +20,7 @@ func QueryPublishedArticles() []Article {
 	sql := "select * from article where status = 1"
 	err := Db.Select(&articles, sql)
 	if nil != err {
-		log.Printf("QueryPublishedArticles err. %v\n", err)
+		util.Log.Warningln("QueryPublishedArticles err.", err)
 	}
 	return articles
 }
@@ -30,7 +30,7 @@ func GetPublishedArticleById(articleId int64) *Article {
 	sql := "select * from article where status = 1 and id = ?"
 	err := Db.QueryRowx(sql, articleId).StructScan(&article)
 	if nil != err {
-		log.Printf("GetPublishedArticleById err. %v\n", err)
+		util.Log.Warningln("GetPublishedArticleById err.", err)
 	}
 	return &article
 }
