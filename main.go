@@ -2,8 +2,7 @@ package main
 
 import (
 	"leonzhangxf-api/api"
-	_ "leonzhangxf-api/api"
-	_ "leonzhangxf-api/db"
+	_ "leonzhangxf-api/config"
 	"leonzhangxf-api/util"
 	_ "leonzhangxf-api/util"
 )

@@ -4,7 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"leonzhangxf-api/db"
+	"leonzhangxf-api/article"
+	"leonzhangxf-api/config"
 	_ "leonzhangxf-api/docs"
 	"net/http"
 )
@@ -22,7 +23,7 @@ func init() {
 	gin.SetMode(gin.ReleaseMode)
 	Engine = gin.Default()
 
-	articleApi := ArticleApi{}
+	articleApi := article.Api{}
 
 	open := Engine.Group("/open")
 	{
@@ -47,7 +48,7 @@ func init() {
 		}
 	}
 
-	// Enable swagger api docs
+	// Enable swagger api docs: swag init
 	Engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Use the ping to indicate the server's status.
@@ -55,7 +56,7 @@ func init() {
 }
 
 func Ping(context *gin.Context) {
-	err := db.Db.Ping()
+	err := config.Db.Ping()
 	if nil != err {
 		context.JSON(http.StatusServiceUnavailable,
 			&PingResponse{Status: http.StatusServiceUnavailable, Msg: "DB ERR"})

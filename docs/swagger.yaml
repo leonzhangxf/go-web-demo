@@ -1,6 +1,6 @@
 basePath: '{{.BasePath}}'
 definitions:
-  api.ArticleDto:
+  article.Dto:
     properties:
       content:
         example: 文章内容
@@ -30,7 +30,7 @@ definitions:
         example: 文章标题
         type: string
     type: object
-  api.ArticleOpenDto:
+  article.OpenDto:
     properties:
       content:
         example: 文章内容
@@ -77,7 +77,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/api.ArticleDto'
+              $ref: '#/definitions/article.Dto'
             type: array
         "404":
           description: Not Found
@@ -94,7 +94,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/api.ArticleOpenDto'
+              $ref: '#/definitions/article.OpenDto'
             type: array
         "404":
           description: Not Found
@@ -116,7 +116,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/api.ArticleOpenDto'
+            $ref: '#/definitions/article.OpenDto'
             type: object
         "400":
           description: Bad Request

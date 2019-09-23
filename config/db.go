@@ -1,4 +1,4 @@
-package db
+package config
 
 import (
 	"fmt"
@@ -16,7 +16,7 @@ var dbConfig DataSourceConfig
 func init() {
 	const dbFileName = "db.toml"
 	dir, _ := os.Getwd()
-	dbFileLocation := fmt.Sprintf("%v%vconf%v%v", dir, string(os.PathSeparator),
+	dbFileLocation := fmt.Sprintf("%v%vconfig%v%v", dir, string(os.PathSeparator),
 		string(os.PathSeparator), dbFileName)
 	util.Log.Infoln("Current db dir is ", dbFileLocation)
 	if _, err := toml.DecodeFile(dbFileLocation, &dbConfig); nil != err {
