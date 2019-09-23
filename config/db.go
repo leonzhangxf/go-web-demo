@@ -22,7 +22,7 @@ func init() {
 	if _, err := toml.DecodeFile(dbFileLocation, &dbConfig); nil != err {
 		util.Log.Fatalln("Parse the db config fail.", err)
 	}
-	util.Log.Infoln("The parsed db config is ", dbConfig)
+	util.Log.Infoln("The db config parsed success.")
 
 	dbConfigFormat := "%v:%v@tcp(%v:%v)/%v?%v"
 	dbParams := "loc=Asia%2FShanghai&parseTime=true"
