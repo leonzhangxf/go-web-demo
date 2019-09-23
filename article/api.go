@@ -12,6 +12,7 @@ type Api struct {
 
 // @Summary Query published articles
 // @Description Query published articles
+// @Tags article
 // @Produce  json
 // @Success 200 {array} article.OpenDto
 // @Failure 404 {string} Not found
@@ -32,6 +33,7 @@ func (api *Api) GetOpenArticles(context *gin.Context) {
 
 // @Summary Get published article by id
 // @Description Get published article by id
+// @Tags article
 // @Produce json
 // @Param id path int true "Article Id"
 // @Success 200 {object} article.OpenDto
@@ -57,6 +59,8 @@ func (api *Api) GetOpenArticleById(ctx *gin.Context) {
 
 // @Summary Query articles
 // @Description Query articles, include no published articles
+// @Tags article
+// @Param Authorization header string true "Token"
 // @Produce  json
 // @Success 200 {array} article.Dto
 // @Failure 404 {string} Not found

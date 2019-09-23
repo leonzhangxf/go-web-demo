@@ -1,0 +1,7 @@
+# manager account config
+username = "admin"
+password = "92gH29G2m9y2_v2b4v8B4BVHf"
+issuer = "leonzhangxf"
+tokenKey = "mingmingjiushini"
+# expires second
+expires = 300

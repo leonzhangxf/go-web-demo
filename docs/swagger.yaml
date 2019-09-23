@@ -57,6 +57,15 @@ definitions:
         example: 文章标题
         type: string
     type: object
+  auth.TokenResponse:
+    properties:
+      refresh_token:
+        description: 用于刷新Token，默认30min过期
+        type: string
+      token:
+        description: 用于调用接口传入Authorization，默认300s过期
+        type: string
+    type: object
   util.JsonTime:
     type: object
 host: '{{.Host}}'
@@ -70,6 +79,12 @@ paths:
   /api/v1/articles:
     get:
       description: Query articles, include no published articles
+      parameters:
+      - description: Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -84,6 +99,67 @@ paths:
           schema:
             type: string
       summary: Query articles
+      tags:
+      - article
+  /api/v1/auth/login:
+    post:
+      description: Login and get the token and refresh token
+      parameters:
+      - description: login username
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: login password
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: obj
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Login
+      tags:
+      - auth
+  /api/v1/auth/refresh_token:
+    post:
+      description: Refresh and get the new token with refresh token
+      parameters:
+      - description: refresh token
+        in: query
+        name: refresh_token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: obj
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Refresh and get the new token
+      tags:
+      - auth
   /open/v1/articles:
     get:
       description: Query published articles
@@ -101,6 +177,8 @@ paths:
           schema:
             type: string
       summary: Query published articles
+      tags:
+      - article
   /open/v1/articles/{id}:
     get:
       description: Get published article by id
@@ -127,4 +205,6 @@ paths:
           schema:
             type: string
       summary: Get published article by id
+      tags:
+      - article
 swagger: "2.0"

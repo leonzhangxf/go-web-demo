@@ -16,7 +16,19 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "article"
+                ],
                 "summary": "Query articles",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -36,11 +48,103 @@
                 }
             }
         },
+        "/api/v1/auth/login": {
+            "post": {
+                "description": "Login and get the token and refresh token",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Login",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login username",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "login password",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "obj"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/refresh_token": {
+            "post": {
+                "description": "Refresh and get the new token with refresh token",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Refresh and get the new token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "refresh token",
+                        "name": "refresh_token",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "obj"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/open/v1/articles": {
             "get": {
                 "description": "Query published articles",
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "article"
                 ],
                 "summary": "Query published articles",
                 "responses": {
@@ -67,6 +171,9 @@
                 "description": "Get published article by id",
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "article"
                 ],
                 "summary": "Get published article by id",
                 "parameters": [
@@ -178,6 +285,19 @@
                 "title": {
                     "type": "string",
                     "example": "文章标题"
+                }
+            }
+        },
+        "auth.TokenResponse": {
+            "type": "object",
+            "properties": {
+                "refresh_token": {
+                    "description": "用于刷新Token，默认30min过期",
+                    "type": "string"
+                },
+                "token": {
+                    "description": "用于调用接口传入Authorization，默认300s过期",
+                    "type": "string"
                 }
             }
         },

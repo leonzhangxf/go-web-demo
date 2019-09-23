@@ -5,6 +5,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"leonzhangxf-api/article"
+	"leonzhangxf-api/auth"
 	"leonzhangxf-api/config"
 	_ "leonzhangxf-api/docs"
 	"net/http"
@@ -24,7 +25,9 @@ func init() {
 	Engine = gin.Default()
 
 	articleApi := article.Api{}
+	authApi := auth.Api{}
 
+	// open api
 	open := Engine.Group("/open")
 	{
 		openV1 := open.Group("/v1")
@@ -37,12 +40,21 @@ func init() {
 		}
 	}
 
+	// internal api
 	api := Engine.Group("/api")
 	{
 		apiV1 := api.Group("/v1")
 		{
+			authentication := apiV1.Group("/auth")
+			{
+				authentication.POST("/login", authApi.Login)
+				authentication.POST("/refresh_token", authApi.RefreshToken)
+			}
+
 			articles := apiV1.Group("/articles")
 			{
+				// Auth token check
+				articles.Use(authApi.TokenCheck)
 				articles.GET("", articleApi.GetArticles)
 			}
 		}
