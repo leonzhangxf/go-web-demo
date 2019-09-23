@@ -109,6 +109,13 @@
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
                         "description": "refresh token",
                         "name": "refresh_token",
                         "in": "query",

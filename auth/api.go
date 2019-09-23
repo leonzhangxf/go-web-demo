@@ -76,6 +76,7 @@ func (api *Api) Login(context *gin.Context) {
 // @Summary Refresh and get the new token
 // @Description Refresh and get the new token with refresh token
 // @Tags auth
+// @Param Authorization header string true "Token"
 // @Param refresh_token query string true "refresh token"
 // @Produce json
 // @Success 201 {obj} auth.TokenResponse

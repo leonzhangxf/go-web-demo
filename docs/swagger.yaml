@@ -137,6 +137,11 @@ paths:
     post:
       description: Refresh and get the new token with refresh token
       parameters:
+      - description: Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: refresh token
         in: query
         name: refresh_token

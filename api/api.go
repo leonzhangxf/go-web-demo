@@ -48,7 +48,7 @@ func init() {
 			authentication := apiV1.Group("/auth")
 			{
 				authentication.POST("/login", authApi.Login)
-				authentication.POST("/refresh_token", authApi.RefreshToken)
+				authentication.POST("/refresh_token", authApi.TokenCheck, authApi.RefreshToken)
 			}
 
 			articles := apiV1.Group("/articles")
