@@ -8,6 +8,7 @@ import (
 	"leonzhangxf-api/auth"
 	"leonzhangxf-api/config"
 	_ "leonzhangxf-api/docs"
+	"leonzhangxf-api/util"
 	"net/http"
 )
 
@@ -22,7 +23,10 @@ var Engine *gin.Engine
 // @BasePath /
 func init() {
 	gin.SetMode(gin.ReleaseMode)
-	Engine = gin.Default()
+	Engine = gin.New()
+	Engine.Use(gin.Recovery())
+	// use logrus as logger
+	Engine.Use(gin.LoggerWithConfig(*util.GetGinLogrusConfig()))
 
 	articleApi := article.Api{}
 	authApi := auth.Api{}
