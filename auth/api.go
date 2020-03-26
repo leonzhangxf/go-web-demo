@@ -3,13 +3,15 @@ package auth
 
 import (
 	"fmt"
-	"github.com/BurntSushi/toml"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/gin-gonic/gin"
-	"leonzhangxf-api/util"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/BurntSushi/toml"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
+
+	"leonzhangxf-api/util"
 )
 
 var mgrConfig managerConfig
