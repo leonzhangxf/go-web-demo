@@ -1,6 +1,8 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -9,7 +11,6 @@ import (
 	"leonzhangxf-api/config"
 	_ "leonzhangxf-api/docs"
 	"leonzhangxf-api/util"
-	"net/http"
 )
 
 var Engine *gin.Engine

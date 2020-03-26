@@ -2,15 +2,16 @@ package main
 
 import (
 	"context"
-	"leonzhangxf-api/api"
-	_ "leonzhangxf-api/config"
-	"leonzhangxf-api/util"
-	_ "leonzhangxf-api/util"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"leonzhangxf-api/api"
+	_ "leonzhangxf-api/config"
+	"leonzhangxf-api/util"
+	_ "leonzhangxf-api/util"
 )
 
 func main() {
